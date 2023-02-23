@@ -1,0 +1,8 @@
+/.vs
+/.vscode
+/HelloWorld.bin
+/VSasm
+/bootFun.bin
+/floppy.img
+/print_hex.bin
+/x_marks.bin
