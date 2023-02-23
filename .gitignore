@@ -6,3 +6,6 @@
 /floppy.img
 /print_hex.bin
 /x_marks.bin
+/L65.bin
+/*.bin
+/*.img
