@@ -39,17 +39,17 @@ print_hex:
   ret
 
 to_char:
-  cmp cx, 0xa ; checking if we need letter or digit literal
-  jl digits   ; if it is digit i.e. less then ten go to digits procedure
-  ; TODO: use sub and negative flag as jump condition
-  sub cx, 0xa ; if it is a letter, we need to substruct 10d (0xa)
-  add cx, 'a' ; to get relative shift from literal A, and then we need to
-  ret         ; is to add to ASCII hex of literal 'A' (or 'a' if we fancy low case),
+  sub cx, 0xa ; substruct 10d (0xa) to check if it is a digit or letter
+  ; checking if we need letter or digit literal
+  js digits   ; if it is digit i.e. less then ten,
+              ; which results in negative flag ,to digits procedure
+  add cx, 'a' ; if it is a letter, we have relative shift from literal A, and then we need to
+  ret         ; add hex value of literal 'A' (or 'a' if we fancy low case),
               ; since they go one after another ex. 0x41='A', 0x42='B', etc.
 
 digits:
-  add cx, '0' ; if it is a digit, all we need to do
-  ret         ; is to add to ASCII hex of literal '0' digit,
+  add cx, '0' + 0xa ; if it is a digit, all we need to do
+  ret         ; is to add back 0xA, ASCII hex of literal '0' and the number we got,
               ; since they go one after another ex. 0x30='0', 0x31='1', etc.
 
 ; includes
