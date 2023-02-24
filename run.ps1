@@ -7,6 +7,7 @@ param ([Parameter(Mandatory)]$source_file,$vm_name="asmFun")
       if ($LastExitCode) {
         throw "Could not launch VM"
       }
+      VBoxManage controlvm $vm_name pause
     }
   }
   catch {
@@ -17,7 +18,6 @@ param ([Parameter(Mandatory)]$source_file,$vm_name="asmFun")
   finally {
     write-host $vm_output
     VBoxManage storageattach $vm_name --type=fdd --storagectl='Floppy' --device=0 --medium=./floppy.img
-    VBoxManage controlvm $vm_name pause
   }
 wsl -e ./build.sh $source_file
 VBoxManage controlvm $vm_name resume
