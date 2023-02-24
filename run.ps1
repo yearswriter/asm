@@ -1,13 +1,24 @@
 param ([Parameter(Mandatory)]$source_file,$vm_name="asmFun")
-#VBoxManage controlvm $vm_name poweroff
-#VBoxManage storageattach $vm_name --type=fdd --storagectl='Floppy' --device=0 --medium=none
-VBoxManage controlvm $vm_name pause
+ try {
+    $vm_output=@(VBoxManage controlvm $vm_name pause 2>&1)
+    if ($LastExitCode) {
+      write-host $vm_output
+      $vm_output+=@(VBoxManage startvm $vm_name 2>&1)
+      if ($LastExitCode) {
+        throw "Could not launch VM"
+      }
+    }
+  }
+  catch {
+    Write-Host "An error occurred:"
+    Write-Host $vm_output
+    Exit-PSHostProcess
+  }
+  finally {
+    write-host $vm_output
+    VBoxManage storageattach $vm_name --type=fdd --storagectl='Floppy' --device=0 --medium=./floppy.img
+    VBoxManage controlvm $vm_name pause
+  }
 wsl -e ./build.sh $source_file
 VBoxManage controlvm $vm_name resume
 VBoxManage controlvm $vm_name reset
-#VBoxManage storageattach $vm_name --type=fdd --storagectl='Floppy' --device=0 --medium=./floppy.img
-#VBoxManage startvm $vm_name
-VBoxManage debugvm $vm_name getregisters eax
-VBoxManage debugvm $vm_name getregisters ebx
-VBoxManage debugvm $vm_name getregisters ecx
-VBoxManage debugvm $vm_name getregisters edx
