@@ -12,7 +12,7 @@ print_hex:
   ; fedc|ba98 7654 3210 ->12 SHR-> fedc
   shr cx, 12 ;4x3
   call to_char
-  mov [hex_string + 0], cx ; we got '0x' in the result string,
+  mov [hex_string + 2], cx ; we got '0x' in the result string,
   ; this is adjustment for that, TODO: can I shift whole string in memory at the very and?
 
   mov cx, dx
@@ -20,19 +20,19 @@ print_hex:
   ; fedc ba98|7654 3210 ->12 SHR-> 0000 ba98
   shr cx, 8 ;4x2
   call to_char
-  mov [hex_string + 1], cx
+  mov [hex_string + 3], cx
 
   mov cx, dx
   and cx, 0x00f0 ;f->2
   shr cx, 4 ; 4x1
   call to_char
-  mov [hex_string + 2], cx
+  mov [hex_string + 4], cx
 
   mov cx, dx
   and cx, 0x000f ;f->4
   ;4x0
   call to_char
-  mov [hex_string + 3], cx
+  mov [hex_string + 5], cx
 
   mov bx, hex_string
   call print_string
@@ -56,4 +56,4 @@ digits:
 %include "./print_string.asm"
 ; data
 hex_string:
-  db '0000', 0
+  db '0x0000', 0
