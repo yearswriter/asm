@@ -17,6 +17,9 @@ call print_hex
 mov dx, [0x9000 + 512] ; Also, print the second loaded word
 call print_hex
 
+mov dx, [0x9000 + 560] ; Also print ASCII string (5 letters + 0 terminator = 8 bytes i.e. 48 bits)
+call print_string
+
 jmp $
 
 %include "./disk_load.asm"
@@ -30,5 +33,6 @@ dw 0xaa55
 ; so if we purposely add a few more sectors to our code by repeating some
 ; familiar numbers , we can prove to ourselfs that we actually loaded those
 ; additional two sectors from the disk we booted from.
+db 'Nice!', 0
 times 256 dw 0xdada
 times 256 dw 0xface
