@@ -13,7 +13,7 @@ print_hex:
                      ; (digit at pos)     12   8    4    0
 
   hex_to_str:
-    cmp [bx], word 0 ; if output string current char is 0,
+    cmp [bx], byte 0 ; if output string current char is 0,
     je done          ;  we are done, output result
       mov si, dx     ; storing input value in si
       mov cl, al     ; setting shiftr value for current iteration
@@ -32,6 +32,7 @@ print_hex:
       inc bx    ; moving to the next char in the output string
       sub al, 4 ; adjusting shiftr. value for next iteration
     jmp hex_to_str
+
   done:
 
   mov bx, hex_string ; loading output string into bx
