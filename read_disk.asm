@@ -33,6 +33,6 @@ dw 0xaa55
 ; so if we purposely add a few more sectors to our code by repeating some
 ; familiar numbers , we can prove to ourselfs that we actually loaded those
 ; additional two sectors from the disk we booted from.
-db 'Nice!', 0
 times 256 dw 0xdada
 times 256 dw 0xface
+db 'Nice!', 0
