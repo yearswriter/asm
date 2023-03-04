@@ -17,7 +17,7 @@ call print_hex
 mov dx, [0x9000 + 512] ; Also, print the second loaded word
 call print_hex
 
-mov dx, [0x9000 + 560] ; Also print ASCII string (5 letters + 0 terminator = 8 bytes i.e. 48 bits)
+mov bx, 0x9000 + 1024 ; Also print ASCII string
 call print_string
 
 jmp $
