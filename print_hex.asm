@@ -54,8 +54,6 @@ digits:
   ret         ; is to add back 0xA, ASCII hex of literal '0' and the number we got,
               ; since they go one after another ex. 0x30='0', 0x31='1', etc.
 
-; includes
-%include "./print_string.asm"
 ; data
 hex_string:
   db '0x0000', 0

@@ -29,5 +29,4 @@ disk_error:
   call print_string
   jmp $
 
-  %include "./print_hex.asm"
   DISK_ERROR_MSG: db "Disk read error!", 0
