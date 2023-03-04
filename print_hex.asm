@@ -14,7 +14,7 @@ print_hex:
 
   hex_to_str:
     cmp [bx], byte 0 ; if output string current char is 0,
-    je done          ;  we are done, output result
+    je done_hex_to_str ;  we are done, output result
       mov si, dx     ; storing input value in si
       mov cl, al     ; setting shiftr value for current iteration
       shr si, cl     ; shiftr. input value to have the
@@ -33,7 +33,7 @@ print_hex:
       sub al, 4 ; adjusting shiftr. value for next iteration
     jmp hex_to_str
 
-  done:
+  done_hex_to_str:
 
   mov bx, hex_string ; loading output string into bx
   call print_string  ; for print_stringj procedure
