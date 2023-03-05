@@ -7,6 +7,7 @@ call print_hex ; call the function
 
 
 jmp $
+%include "./print_string.asm"
 %include "./print_hex.asm"
 ; Padding and magic BIOS number.
 times 510-($ - $$) db 0
